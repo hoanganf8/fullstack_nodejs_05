@@ -1,0 +1,19 @@
+/*Comment CSS*/
+/*
+      selector1 {
+        property1: value1;
+        property2: value2;
+      }
+      selector2 {
+        property1: value1;
+        property2: value;
+      }
+      */
+h1 {
+  color: red;
+  font-weight: bold;
+}
+h2 {
+  color: green;
+  font-style: italic;
+}

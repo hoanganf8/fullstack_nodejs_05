@@ -1,0 +1,48 @@
+/* #title {
+  color: red;
+}
+
+.title {
+  color: green;
+}
+
+h2 {
+  color: blueviolet;
+} */
+
+/* .content h2 {
+  color: red;
+}
+
+.main h2 {
+  color: green;
+} */
+
+/* .content div h2 {
+  color: green;
+}
+
+.content > h2 {
+  color: red;
+} */
+
+/* .products .title {
+  color: green;
+}
+
+.products .title.featured {
+  font-style: italic;
+} */
+
+/*
+selector1 ~ selector2
+selector1, selector2, selector3,...
+*/
+.box p ~ ul,
+.box p ~ div ul {
+  color: green;
+}
+
+/* .box p ~ div ul {
+  color: green;
+} */
