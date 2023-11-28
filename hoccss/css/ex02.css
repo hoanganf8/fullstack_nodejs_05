@@ -38,11 +38,19 @@ h2 {
 selector1 ~ selector2
 selector1, selector2, selector3,...
 */
-.box p ~ ul,
+/* .box p ~ ul,
 .box p ~ div ul {
   color: green;
-}
+} */
 
 /* .box p ~ div ul {
   color: green;
 } */
+
+/* .box p + h2 + h2 {
+  color: red;
+} */
+
+.box h2 + h2 {
+  color: red;
+}

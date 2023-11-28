@@ -1,0 +1,42 @@
+/*
+Cấu trúc chọn phần tử giả: 
+selector::tenphantu
+
+1. before, after
+- Thêm phần tử vào trước và sau thẻ html
+- Điều kiện: Phải có thuộc tính content
+- Phần tử giả before, after ở dạng inline
+
+2. first-letter --> Chọn ký tự đầu tiên
+
+3. first-line --> Chọn dòng đầu tiên
+
+4. selection --> Chọn văn bản (Bôi đen)
+*/
+/* .title::before {
+  content: "a";
+}
+.title::after {
+  content: "b";
+} */
+
+.content p::first-letter {
+  color: red;
+}
+
+.content p::first-line {
+  color: green;
+}
+
+.content p::selection {
+  background: black;
+  color: yellow;
+}
+
+.name {
+  color: red;
+}
+
+.name::placeholder {
+  color: green;
+}

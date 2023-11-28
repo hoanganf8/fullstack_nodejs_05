@@ -1,0 +1,47 @@
+/*Attribute Selector*/
+/* .links a[target="_blank"] {
+  color: red;
+} */
+
+/* .links a[target] {
+  color: red;
+} */
+
+/* .links a[href^="https://fullstack.edu.vn"]
+{
+  color: red;
+} */
+
+/* .links a[href*="fullstack.edu.vn"] {
+  color: red;
+} */
+
+/* .links a[title~="vietnamnet"] {
+  color: red;
+} */
+
+/* .links a[href$=".vn"] {
+  color: red;
+}
+
+[class^="col-"] {
+  color: green;
+} */
+
+/* * {
+  color: red;
+} */
+
+/* .products > * {
+  color: red;
+} */
+
+/*
+.box > .content .element p + h2 ~ a {
+
+}
+
+.box p ~ ul, .box a {
+
+}
+*/

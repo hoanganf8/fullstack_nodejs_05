@@ -1,0 +1,65 @@
+/*
+Cấu trúc
+selector:pseudo_class {
+    
+}
+
+1. active, focus, hover
+*/
+
+.title:hover {
+  color: red;
+}
+.title:active {
+  color: green;
+}
+
+/* .btn:active {
+  background: green;
+  color: #fff;
+} */
+
+.btn:focus {
+  color: red;
+}
+
+/* .field-name:focus::placeholder {
+  color: red;
+}
+
+.checkbox input:checked + span {
+  color: red;
+} */
+
+/* .checkbox input[disabled] + span {
+  color: gray;
+} */
+
+/* .checkbox input:disabled + span {
+  color: gray;
+} */
+
+/* .checkbox div:not(.ignore-item) span {
+  color: red;
+} */
+
+/* .products h2:first-child {
+  color: red;
+}
+
+.products h2:last-child {
+  color: green;
+} */
+
+.products h2:first-of-type {
+  color: red;
+}
+
+.products h2:last-of-type {
+  color: green;
+}
+
+/*
+nth-child
+nth-of-type
+*/
