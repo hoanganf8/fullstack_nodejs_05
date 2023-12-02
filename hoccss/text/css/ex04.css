@@ -1,0 +1,32 @@
+body {
+  /* letter-spacing: 5px; */
+  /* word-spacing: 5px; */
+  /* font-size: 20px;
+  line-height: 1.5; */
+  /* text-decoration: overline line-through underline; */
+  /* text-transform: capitalize; */
+  /* text-indent: 10px; */
+  /* word-wrap: break-word; */
+  /* word-break: break-all; */
+  /* text-align: justify; */
+}
+
+.text {
+  text-align: center;
+}
+/* 
+.text img {
+  display: block;
+} */
+
+.text div {
+  display: inline-block;
+  width: 200px;
+  height: 200px;
+  border: 1px solid red;
+}
+
+label {
+  border: 1px solid red;
+  width: 200px;
+}

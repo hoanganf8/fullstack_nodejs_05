@@ -51,15 +51,19 @@ selector:pseudo_class {
   color: green;
 } */
 
-.products h2:first-of-type {
+/* .products h2:first-of-type {
   color: red;
 }
 
 .products h2:last-of-type {
   color: green;
-}
+} */
 
 /*
 nth-child
 nth-of-type
 */
+
+.products h2:nth-of-type(2n + 1) {
+  color: red;
+}

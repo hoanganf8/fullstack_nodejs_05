@@ -1,0 +1,38 @@
+/*
+Thuộc tính color: Thay đổi màu văn bản
+Cú pháp: color: value
+- Tên màu
+- Mã màu hexa
+- rgb
+- hls
+
+Color Opacity
+
+Color Transparent
+
+Các giá trị mặc định trong tất cả các thuộc tính css
+- initial --> Giá trị mặc định của trình duyệt
+- inherit --> Giá trị kế thừa element cha
+*/
+.title {
+  color: green;
+}
+.title:hover {
+  color: initial;
+}
+
+.sub-title {
+  color: rgb(238, 118, 6);
+}
+
+.sub-title-2 {
+  color: rgba(238, 118, 6, 0.513);
+}
+
+.text-1 {
+  color: #e000c9;
+}
+
+.text-2 {
+  color: #e000caa2;
+}
