@@ -1,0 +1,29 @@
+/*
+background-color: Nhận giá trị màu (tên màu, mã màu hexa, rgb, rgba, hsl,...)
+background-image --> Thiết lập ảnh nền
+background-repeat --> Thiết lập chế độ lặp (repeat, no-repeat, repeat-x, repeat-y)
+background-position --> Thiết lập vị trí của ảnh nền (left top mặc định)
+background-size: Tùy chỉnh kích thước của ảnh nền
+background-attachment --> Thiết lập cố định background khi kéo thanh cuộn (scrolling)
+background: color image position / size repeat attachment
+*/
+/* body {
+  background: burlywood;
+} */
+
+.box {
+  /* background-color: rgba(128, 128, 128, 0.38); */
+  color: #fff;
+  height: 2000px;
+}
+
+body {
+  /* background-color: black;
+  background-image: url("https://images.unsplash.com/photo-1701293773241-de1a7bff8e3d?q=80&w=1441&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: left top;
+  background-size: 100% auto; */
+  /* background: green url("https://picsum.photos/200") no-repeat left top /
+    contain fixed; */
+}
