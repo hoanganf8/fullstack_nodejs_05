@@ -1,0 +1,43 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  outline: 0;
+}
+
+.box {
+  width: 400px;
+  border: 1px solid red;
+  margin: 30px auto;
+  overflow: hidden;
+}
+
+.box .col-1 {
+  background-color: rgba(0, 128, 0, 0.702);
+  color: #fff;
+  /* width: 100px; */
+  /* height: 50px; */
+  float: right;
+}
+
+.box .col-2 {
+  background-color: rgba(255, 0, 0, 0.48);
+  color: #fff;
+  width: 150px;
+  height: 100px;
+  float: right;
+}
+
+.box .text {
+  background: goldenrod;
+  width: 70px;
+  height: 30px;
+  clear: both;
+}
+
+/*
+float: Trôi các thành phần về bên trái hoặc bên phải của thành phần cha
+- none
+- left
+- right
+*/

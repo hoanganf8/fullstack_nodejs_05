@@ -1,0 +1,19 @@
+/*
+Xử lý nội dung bị tràn ra ngoài
+--> Quyết định các nội dung tràn ra ngoài sẽ như thế nào?
++ Giữ nguyên (visible)
++ Ẩn đi (hidden)
++ Tạo thanh cuộn (scroll, auto)
+*/
+.box {
+  border: 1px solid red;
+  width: 200px;
+  height: 200px;
+  /* overflow: auto; */
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.box p {
+  width: 300px;
+}

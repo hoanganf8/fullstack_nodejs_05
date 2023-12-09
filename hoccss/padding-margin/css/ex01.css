@@ -1,0 +1,23 @@
+/*
+padding có 4 hướng: trên, dưới, trái phải --> Áp dụng với block
+padding có 2 hướng: trái phải --> Áp dụng với inline
+
+--> Margin cũng thế
+*/
+.box {
+  width: 200px;
+  height: 200px;
+  border: 1px solid red;
+  padding: 20px;
+}
+
+.lists span {
+  border: 1px solid green;
+  /* padding: 20px 30px; */
+  /* display: inline-block; */
+}
+
+.lists span:nth-child(2) {
+  padding: 10px 0;
+  display: inline-block;
+}
