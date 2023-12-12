@@ -1,0 +1,50 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.box {
+  border: 1px solid red;
+  margin: 30px auto;
+  width: 400px;
+}
+
+.box ul {
+  /* list-style-position: inside;
+  list-style-type: none; */
+  /* list-style: decimal outside; */
+  list-style: none;
+}
+.box ul li {
+  line-height: 1.5;
+}
+.box ul li::before {
+  content: "";
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  background-image: url("https://static-00.iconduck.com/assets.00/circle-arrow-right-icon-256x256-bckg9924.png");
+  background-size: 20px;
+  margin-right: 10px;
+  vertical-align: middle;
+}
+
+.box ul li:hover::before {
+  background-image: url("https://cdn-icons-png.flaticon.com/512/4421/4421834.png");
+}
+/* .wrap {
+  display: table;
+  width: 100%;
+} */
+.content {
+  height: 300px;
+  background: green;
+  color: #fff;
+  /* text-align: center;
+  display: table-cell;
+  vertical-align: middle; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

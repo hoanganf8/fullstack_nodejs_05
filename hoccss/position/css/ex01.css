@@ -1,0 +1,76 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+body {
+  height: 2000px;
+}
+.box {
+  border: 1px solid red;
+  width: 500px;
+  margin: 30px auto;
+  padding: 30px;
+  position: relative;
+}
+
+.box .content {
+  border: 1px solid green;
+  position: relative;
+}
+
+.box .content .item {
+  background: blueviolet;
+  color: #fff;
+  width: 200px;
+  height: 50px;
+  border: 1px solid #fff;
+}
+
+.box .content .item:nth-child(2) {
+  /* margin-top: -20px;
+  margin-left: -20px; */
+  position: relative;
+  left: 20px;
+  top: 20px;
+  z-index: 1;
+  /* position: absolute;
+  left: 50%;
+  top: 50%; */
+  /* width: auto;
+  height: auto;
+  background: #00000073; */
+  /* position: fixed;
+  bottom: 0;
+  right: 0; */
+}
+.box .content .item:nth-child(3) {
+  position: relative;
+  z-index: 2;
+}
+.box .content .item:nth-child(4) {
+  position: absolute;
+  /* top: 30px;
+  left: 150px; */
+  width: auto;
+  height: auto;
+  /* left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0; */
+  inset: 10px 20px 30px 40px;
+}
+.box .content .item:nth-child(1) {
+  position: relative;
+  z-index: 3;
+}
+/*
+Thuộc tính position: Thay đổi vị trí các phần tử
+Cú pháp: position: static|relative|absolute|fixed
+Các thuộc tính mở rộng (Chỉ hoạt động khi có position (Trừ static))
+- top
+- left
+- right
+- bottom
+- z-index
+- inset
+*/
