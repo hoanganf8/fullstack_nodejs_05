@@ -1,0 +1,90 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+
+label {
+  display: block;
+}
+
+.radio label span {
+  position: relative;
+  cursor: pointer;
+  user-select: none;
+}
+
+.radio label span::before {
+  content: "";
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border: 1px solid green;
+  margin-right: 2px;
+  border-radius: 50%;
+}
+
+.radio label span::after {
+  content: "";
+  display: none;
+  width: 8px;
+  height: 8px;
+  background: green;
+  border-radius: 50%;
+  position: absolute;
+  left: 2px;
+  top: 4.3px;
+}
+
+.radio label input:checked + span::after {
+  display: inline-block;
+}
+
+.radio label input:disabled + span::before {
+  border-color: gray;
+}
+.radio label input:disabled + span::after {
+  background-color: gray;
+}
+
+.radio label input:disabled + span {
+  color: gray;
+}
+
+/*Checkbox*/
+.checkbox label span {
+  position: relative;
+}
+.checkbox label span::before {
+  content: "";
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border: 1px solid green;
+  margin-right: 2px;
+}
+
+.checkbox label span::after {
+  content: "";
+  display: none;
+  width: 7px;
+  height: 4px;
+  font-size: 0.7rem;
+  font-weight: bold;
+  border: 2px solid;
+  border-color: transparent transparent green green;
+  rotate: -45deg;
+  position: absolute;
+  left: 2px;
+  top: 1.5px;
+}
+
+.checkbox label input:checked + span::after {
+  display: block;
+}
+
+.checkbox label input:disabled + span::before {
+  border-color: gray;
+}
+.checkbox label input:disabled + span::after {
+  border-color: transparent transparent gray gray;
+}

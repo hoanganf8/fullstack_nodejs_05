@@ -1,0 +1,62 @@
+/*
+Có 2 cách: 
+- Cách 1: Chuyển thẻ h2 thành dạng list-item
+- Cách 2: Dùng counter
+
+Các bước tạo bộ đếm trong CSS
+- Khởi tạo bộ đếm (Tên là gì? Ở đâu?)
+- Chạy bộ đếm (Tên là gì? Ở đâu?)
+- Hiển thị bộ đếm
+*/
+* {
+  padding: 0;
+  margin: 0;
+}
+
+.songs {
+  width: 50%;
+  margin: 30px auto;
+  border: 1px solid red;
+  counter-reset: song-number;
+}
+
+.songs .children {
+  counter-reset: song-children;
+}
+.songs .children h2 {
+  counter-increment: song-children;
+}
+
+.songs .children h2::before {
+  content: counter(song-number) "." counter(song-children);
+}
+
+.songs h2 {
+  counter-increment: song-number;
+  padding: 7px 0;
+  /* display: list-item;
+    list-style: inside decimal-leading-zero; */
+}
+
+.songs h2::before {
+  content: "#" counter(song-number);
+  display: inline-block;
+  width: 22px;
+  height: 22px;
+  background: green;
+  font-size: 1rem;
+  text-align: center;
+  color: #fff;
+  border-radius: 50%;
+  vertical-align: middle;
+  margin-right: 5px;
+}
+.box {
+  counter-reset: song-number;
+}
+.box h2 {
+  counter-increment: song-number;
+}
+.box h2::before {
+  content: counter(song-number);
+}

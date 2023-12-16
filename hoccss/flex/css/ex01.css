@@ -1,0 +1,43 @@
+/*
+Flex CSS = Flexible Box Module
+-> Kỹ thuật chia layout trong CSS
+
+Flex có 2 thành phần: 
+- Flex Container --> Thẻ bọc
+- Flex Item --> Thẻ con
+
+Kích hoạt flexbox --> Sử dụng thuộc tính display: flex | inline-flex
+
+1. Các thuộc tính trong nhóm flex container
+- display: flex | inline-flex
+- justify-content: Căn chỉnh các item theo hướng song song với trục chính
++ flex-start
++ flex-end
++ center
++ space-around
++ space-between
++ space-evenly
+- flex-direction: Điều chỉnh hướng của trục chính
++ row
++ row-reverse
++ column
++ column-reverse
+*/
+* {
+  padding: 0;
+  margin: 0;
+}
+.products {
+  width: 400px;
+  height: 200px;
+  border: 1px solid red;
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: column-reverse;
+}
+
+.products .item {
+  background: green;
+  color: #fff;
+  border: 1px solid #fff;
+}

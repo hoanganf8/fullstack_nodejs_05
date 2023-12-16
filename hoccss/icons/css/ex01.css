@@ -1,0 +1,32 @@
+/* .icons {
+  font-size: 30px;
+  color: red;
+}
+
+.icons i {
+  border: 1px solid red;
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+} */
+
+.box h2::before {
+  font-family: "Font Awesome 6 Brands";
+  color: red;
+  font-size: 1.2rem;
+}
+
+.box h2.facebook::before {
+  content: "\f39e";
+}
+
+.box h2.twitter::before {
+  content: "\e61b";
+}
+
+.box h2.instagram::before {
+  content: "\f16d";
+}
