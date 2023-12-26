@@ -1,0 +1,21 @@
+/*
+Background Gradient
+- linear-gradient: Xuất phát từ 1 phía
++ to right
++ to bottom
++ to left
++ to top
++ to bottom right
++ to bottom left
++ to top left
++ to top right
++ angle (Ví dụ: 270deg)
+- radial-gradient: Xuất phát từ tâm
+*/
+.box {
+  width: 400px;
+  height: 300px;
+  margin: 30px auto;
+  /* background: linear-gradient(210deg, red 20%, blue 50%, green 80%); */
+  background: radial-gradient(circle, red 20%, blue 50%, green 80%);
+}

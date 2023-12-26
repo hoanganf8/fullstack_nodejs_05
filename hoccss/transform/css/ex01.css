@@ -13,28 +13,37 @@ Thuộc tính transform: Thay đổi hình dạng của 1 thẻ html
 + skewX(x)
 + skewY(y)
 - Di chuyển
++ translate(x,y)
++ translateX(x)
++ translateY(y)
 */
 .wrap {
-    padding: 30px;
-    border: 1px solid red;
+  padding: 30px;
+  border: 1px solid red;
 }
 .box {
-    width: 100px;
-    height: 100px;
-    background: green;
-    color: #fff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 30px auto;
-    transition: scale 0.4s linear;
+  width: 100px;
+  height: 100px;
+  background: green;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 30px auto;
+  transition: all 0.4s linear;
+  position: relative;
+  top: 0;
+  left: 0;
 }
 .wrap:hover .box {
-    /* transform: rotate(360deg); */
-    /* transform: rotateX(180deg); */
-    /* transform: rotateY(180deg); */
-    /* transform: rotate(30deg) scale(1.5); */
-    /* transform: skew(30deg, 30deg); */
-    /* rotate: 30deg; */
-    scale: 1.5 1;
+  /* transform: rotate(360deg); */
+  /* transform: rotateX(180deg); */
+  /* transform: rotateY(180deg); */
+  /* transform: rotate(30deg) scale(1.5); */
+  /* transform: skew(30deg, 30deg); */
+  /* rotate: 30deg; */
+  /* scale: 1.5 1; */
+  /* transform: translate(100px, 100px); */
+  /* left: 50%; */
+  translate: 50%;
 }
