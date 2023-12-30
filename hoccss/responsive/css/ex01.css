@@ -1,0 +1,28 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  outline: 0;
+}
+
+body {
+  color: green;
+}
+
+@media screen and (max-width: 1199px) {
+  body {
+    color: red;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  body {
+    color: blueviolet;
+  }
+}
+
+@media screen and (max-width: 575px) {
+  .box p {
+    display: none;
+  }
+}
