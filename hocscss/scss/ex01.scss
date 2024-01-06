@@ -1,0 +1,48 @@
+//Comment trong SCSS
+/*Comment CSS*/
+//Cú pháp lồng: selector, thuộc tính (Không nên dùng)
+@import "parts/variables";
+@import "parts/header";
+@import "parts/footer";
+
+//Placeholder
+%section-base {
+  padding: 30px;
+  background: gray;
+  //   .container {
+  //     max-width: 1000px;
+  //   }
+}
+//Mixin
+@mixin section-base {
+  padding: 30px;
+  background: gray;
+}
+@mixin center($width, $space: 0, $type: "margin") {
+  @if $type == "margin" {
+    max-width: $width;
+    margin: $space auto;
+  } @else if $type == "flex" {
+    display: flex;
+    .inner {
+      max-width: $width;
+    }
+  }
+  .container {
+    box-shadow: 5px 5px 5px #ccc;
+  }
+}
+
+.posts {
+  box-shadow: 5px 5px 10px #ccc;
+  @extend %section-base;
+  @include center(1000px, 0, "flex");
+  //   @include section-base;
+}
+
+.products {
+  border-radius: 20px;
+  @extend %section-base;
+  //   @include section-base;
+  //   @include center(500px, 30px);
+}

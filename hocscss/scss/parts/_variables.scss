@@ -1,0 +1,11 @@
+//Biến SCSS
+//- Bắt đầu bằng $
+//- Đặt tên quy tắc camelCase
+$primaryColor: red;
+$secondaryColor: green;
+$primaryBackgroundColor: blueviolet;
+$font: Roboto, sans-serif;
+
+:root {
+  --font-size: 13px;
+}
