@@ -1,0 +1,19 @@
+//Import Partials
+@import "partials/variables";
+@import "partials/reset";
+@import "partials/mixin";
+@import "partials/placeholder";
+@import "partials/base";
+
+//Import Components
+@import "components/header";
+@import "components/footer";
+
+//Import Page
+//1. Home
+@import "pages/home/carousel";
+@import "pages/home/products";
+@import "pages/home/posts";
+
+//2. About
+@import "pages/about/about";

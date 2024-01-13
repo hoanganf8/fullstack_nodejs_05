@@ -1,0 +1,50 @@
+.item-30 {
+  width: 60%;
+}
+
+.item-50 {
+  width: 100%;
+}
+
+.item-70 {
+  width: 140%;
+}
+
+.item-90 {
+  width: 100%;
+}
+
+.small {
+  font-weight: normal;
+  width: 40px;
+}
+
+.regular {
+  font-weight: bold;
+  width: 60px;
+}
+
+.large {
+  font-weight: 900;
+  width: 80px;
+}
+
+.column-small {
+  width: 40px;
+}
+
+.column-regular {
+  width: 60px;
+}
+
+.column-large {
+  width: 80px;
+}
+
+.box {
+  width: 100%;
+  height: auto;
+  color: #333;
+}
+
+/*# sourceMappingURL=ex02.css.map */
