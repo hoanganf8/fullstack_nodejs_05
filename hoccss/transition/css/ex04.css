@@ -1,29 +1,29 @@
 * {
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
 }
 
 h2 {
-    position: relative;
-    color: green;
+  position: relative;
+  color: green;
 }
 
 h2 > span {
-    transition: top 0.3s ease;
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    top: 100%; 
-    overflow: hidden;
-    background: yellow;
+  transition: top 0.3s ease;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 100%;
+  overflow: hidden;
+  /* background: yellow; */
 }
 h2 > span > span {
-    position: absolute;
-    bottom: 0;
-    color: red;
+  position: absolute;
+  bottom: 0;
+  color: red;
 }
 h2:hover > span {
-    top: 0;
+  top: 0;
 }
