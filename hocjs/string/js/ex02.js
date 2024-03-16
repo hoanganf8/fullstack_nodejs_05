@@ -1,4 +1,4 @@
-var keyword = "o";
+var keyword = "F8";
 var content = `F8 123 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempora, assumenda! Exercitationem totam in enim id, voluptatem itaque, distinctio perferendis quibusdam illum perspiciatis ipsa? Illum velit inventore alias deleniti consectetur aperiam? F8 123 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempora, assumenda! Exercitationem totam in enim id, voluptatem itaque, distinctio perferendis quibusdam illum perspiciatis ipsa? Illum velit inventore alias deleniti consectetur aperiam? F8 123 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempora, assumenda! Exercitationem totam in enim id, voluptatem itaque, distinctio perferendis quibusdam illum perspiciatis ipsa? Illum velit inventore alias deleniti consectetur aperiam? F8 123 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempora, assumenda! Exercitationem totam in enim id, voluptatem itaque, distinctio perferendis quibusdam illum perspiciatis ipsa? Illum velit inventore alias deleniti consectetur aperiam?`;
 
 var position = content.toLowerCase().indexOf(keyword.toLowerCase());
