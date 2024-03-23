@@ -200,6 +200,10 @@ var handleColorKaraoke = function (currentTime) {
         var rate = ((currentTime - startTime) * 100) / (endTime - startTime);
         wordEl.children[0].style.width = `${rate}%`;
       }
+
+      if (currentTime >= endTime) {
+        wordEl.children[0].style.width = `100%`;
+      }
     });
   }
 };
