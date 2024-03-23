@@ -95,3 +95,111 @@ audio.addEventListener("timeupdate", function () {
   var rate = (audio.currentTime / audio.duration) * 100;
   progress.style.width = `${rate}%`;
 });
+
+//Xử lý chức năng Karaoke
+console.log(lyrics);
+
+var requestAnimationFrame =
+  window.requestAnimationFrame ||
+  window.mozRequestAnimationFrame ||
+  window.webkitRequestAnimationFrame ||
+  window.msRequestAnimationFrame;
+
+var cancelAnimationFrame =
+  window.cancelAnimationFrame || window.mozCancelAnimationFrame;
+
+var requestId;
+
+var karaokeInner = document.querySelector(".karaoke .karaoke-inner");
+
+audio.addEventListener("play", function () {
+  requestId = requestAnimationFrame(handleKaraoke);
+});
+
+audio.addEventListener("pause", function () {
+  cancelAnimationFrame(requestId);
+});
+var currentIndex;
+var handleKaraoke = function () {
+  var currentTime = audio.currentTime * 1000; //Giây --> mili giây
+  handleColorKaraoke(currentTime);
+  var index = lyrics.findIndex(function (wordsItem) {
+    var words = wordsItem.words;
+    var firstWord = words[0];
+    var lastWord = words[words.length - 1];
+    return (
+      currentTime >= firstWord.startTime && currentTime <= lastWord.endTime
+    );
+  });
+
+  if (index !== -1 && currentIndex !== index) {
+    if (index === 0) {
+      karaokeInner.innerHTML = `
+      <p>${getSentences(0)}</p>
+      <p>${getSentences(1)}</p>
+      `;
+    } else {
+      /*
+        index = 1 --> Ẩn dòng đầu (0) --> Hiển thị index = 2
+        index = 2 --> Ẩn dòng hai (1) --> Hiển thị index = 3
+        index = 3 --> Ẩn dòng đầu (0) --> Hiển thị index = 4
+        index = 4 --> Ẩn dòng hai (1) --> Hiển thị index = 5
+      */
+      setTimeout(function () {
+        if (index % 2 !== 0) {
+          nextSentence(karaokeInner.children[0], getSentences(index + 1));
+        } else {
+          nextSentence(karaokeInner.children[1], getSentences(index + 1));
+        }
+      }, 500);
+    }
+
+    currentIndex = index;
+  }
+  requestId = requestAnimationFrame(handleKaraoke);
+};
+
+//Hiển thị 2 câu dựa vào index
+/*
+Câu 1: index
+Câu 2: index+1
+*/
+var getSentences = function (index) {
+  //Bước 1: Tạo 1 mảng chứa các từ trong 1 câu
+  var sentencesArr = lyrics[index].words.map(function (item) {
+    return `<span class="words" data-start-time="${item.startTime}" data-end-time="${item.endTime}">${item.data}<span>${item.data}</span></span>`;
+  });
+  //Bước 2: Nối các từ trong 1 câu ==> Chuỗi
+  var sentences = sentencesArr.join(" ");
+  return sentences;
+};
+
+//Hiển thị câu tiếp theo
+var nextSentence = function (element, sentence) {
+  //element: Dòng sẽ ẩn
+  //sentence: Câu tiếp theo sẽ hiển thị
+  //Ẩn dòng mong muốn --> Chờ 500ms --> Thêm nội dung thay thế --> Hiển thị
+  element.style.opacity = 0;
+  element.style.transition = `opacity 0.3s ease-in-out`;
+  setTimeout(function () {
+    element.innerHTML = sentence;
+    element.style.opacity = 1;
+  }, 300);
+};
+
+//Xử lý chạy màu cho từng từ
+var handleColorKaraoke = function (currentTime) {
+  var wordsEl = karaokeInner.querySelectorAll(".words");
+  if (wordsEl.length) {
+    wordsEl.forEach(function (wordEl, index) {
+      var startTime = wordEl.dataset.startTime;
+      var endTime = wordEl.dataset.endTime;
+
+      if (currentTime > startTime && currentTime < endTime) {
+        //Tính phần trăm của vị trí hiện tại so với khoảng thời gian bắt đầu của từ
+        var rate = ((currentTime - startTime) * 100) / (endTime - startTime);
+        wordEl.children[0].style.width = `${rate}%`;
+      }
+    });
+  }
+};
