@@ -10,6 +10,7 @@ url: URL của API
 options: Object để thiết lập HTTP Request
 Hàm fetch trả về 1 promise
 */
+import { debounce } from "./utils.js";
 
 const userApi = `http://localhost:3000/users`;
 // fetch(userApi)
@@ -27,20 +28,27 @@ const userApi = `http://localhost:3000/users`;
 //   });
 
 const root = document.querySelector("#root");
+const form = document.querySelector(".form-add");
+const search = document.querySelector(".search");
+const pagination = document.querySelector(".pagination");
 const render = (users) => {
   root.innerHTML = `<div class="users">
     <h2>Danh sách người dùng</h2>
-    ${users
-      .map(
-        ({ id, name }) => `
+    ${
+      users.length
+        ? users
+            .map(
+              ({ id, name }) => `
       <div class="user-item">
         <p>Tên: ${name}</p>
         <button data-id="${id}" data-type="detail">Chi tiết</button>
         <button data-id="${id}" data-type="delete">Xóa</button>
         <button data-id="${id}" data-type="update">Sửa</button>
       </div>`
-      )
-      .join("")}
+            )
+            .join("")
+        : `<h3>Không tìm thấy người dùng</h3>`
+    }
   </div>`;
 
   root.querySelector(".users").addEventListener("click", (e) => {
@@ -70,6 +78,40 @@ const renderUser = ({ name, email }) => {
    </div>
    `;
 };
+
+const renderPaginate = (totalUsers) => {
+  //Tính tổng số trang --> Làm tròn lên (Math.ceil)
+  const totalPages = Math.ceil(totalUsers / 3);
+  if (totalPages <= 1) {
+    pagination.innerHTML = "";
+    return;
+  }
+  let html = ``;
+  for (let page = 1; page <= totalPages; page++) {
+    html += `<a href="#" class="page" style="${
+      page === query._page ? "color: red; font-weight: bold;" : ""
+    }">${page}</a>`;
+  }
+  pagination.innerHTML = `
+  ${query._page > 1 ? '<a href="#" class="prev">Trước</a>' : ""}
+  ${html}
+  ${query._page < totalPages ? '<a href="#" class="next">Sau</a>' : ""}
+  `;
+};
+pagination.addEventListener("click", (e) => {
+  e.preventDefault();
+  if (e.target.classList.contains("page")) {
+    const page = +e.target.innerText;
+    query._page = page;
+  }
+  if (e.target.classList.contains("prev")) {
+    query._page--;
+  }
+  if (e.target.classList.contains("next")) {
+    query._page++;
+  }
+  showUser();
+});
 const deleteUser = async (id) => {
   const response = await fetch(userApi + `/${id}`, {
     method: "DELETE",
@@ -78,18 +120,23 @@ const deleteUser = async (id) => {
     showUser();
   }
 };
-const updateUser = async (id) => {
-  const response = await fetch(userApi + `/${id}`, {
-    method: "PATCH",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ name: "User 11" }),
-  });
+const showFormUpdate = async (id) => {
+  const response = await fetch(userApi + `/${id}`);
   if (response.ok) {
-    //Thành công
-    showUser();
+    const data = await response.json();
+    const nameEl = form.querySelector('[name="name"]');
+    const emailEl = form.querySelector('[name="email"]');
+    const btnEl = form.querySelector("button");
+    nameEl.value = data.name;
+    emailEl.value = data.email;
+    btnEl.innerText = "Cập nhật";
+    form.dataset.id = id;
+  } else {
+    alert("Đã có lỗi xảy ra");
   }
+};
+const updateUser = async (id) => {
+  showFormUpdate(id);
 };
 const showDetailUser = async (id) => {
   const response = await fetch(userApi + `/${id}`);
@@ -99,8 +146,8 @@ const showDetailUser = async (id) => {
 const query = {
   _sort: "id",
   _order: "desc",
-  //   _limit: 2,
-  //   _page: 1,
+  _limit: 3,
+  _page: 1,
 };
 const showUser = async () => {
   const queryString = Object.keys(query)
@@ -109,15 +156,28 @@ const showUser = async () => {
   const response = await fetch(userApi + queryString);
   const users = await response.json();
   render(users);
+  //Phân trang:
+  //Tính tổng số trang = Tổng số user / limit
+  const totalUsers = response.headers.get("x-total-count");
+  renderPaginate(totalUsers);
 };
+
 showUser();
 
 //Xử lý thêm dữ liệu
 const formAdd = document.querySelector(".form-add");
 formAdd.addEventListener("submit", (e) => {
   e.preventDefault();
-  const form = Object.fromEntries([...new FormData(e.target)]);
-  addUser(form);
+  const formData = Object.fromEntries([...new FormData(e.target)]);
+  if (form.dataset.id) {
+    //Sửa
+    console.log("Gọi hàm sửa");
+    const id = form.dataset.id;
+    updateUserApi(id, formData);
+  } else {
+    //Thêm
+    addUser(formData);
+  }
 });
 
 const addUser = async (data) => {
@@ -133,5 +193,38 @@ const addUser = async (data) => {
     showUser();
   }
 };
+
+const updateUserApi = async (id, data) => {
+  const response = await fetch(userApi + `/${id}`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  });
+  if (response.ok) {
+    //Thành công
+    showUser();
+    resetForm();
+  } else {
+    alert("Lỗi này của chúng tôi");
+  }
+};
+
+const resetForm = () => {
+  form.reset();
+  delete form.dataset.id;
+  form.querySelector("button").innerText = "Thêm";
+};
+
+const handleSearch = debounce((e) => {
+  const keyword = e.target.value ? e.target.value.trim() : "";
+  console.log(keyword);
+  //Gọi API có tham số ?q=keyword
+  query.q = keyword;
+  showUser();
+}, 500);
+
+search.addEventListener("input", handleSearch);
 
 //Client side rendering (CSR)
