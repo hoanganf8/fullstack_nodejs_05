@@ -1,0 +1,74 @@
+# Package
+
+- Khi làm việc các ngôn ngữ lập trình ==> Sử dụng thêm các thư viện ở bên ngoài
+- Phát sinh ra các vấn đề:
+
+* Cập nhật phiên bản
+* Di chuyển thư viện từ nơi này qua nơi khác (Local lên github, Local lên Server,...) ==> Source code rất nặng
+* Xóa thư viện
+
+==> Sinh ra công cụ quản lý các thư viện: Package Manager, Dependencies Manager,...
+
+==> Market để chứa các thư viện
+
+Trong JS: npm, yarn,...
+
+Đặc điểm: Thao tác bằng câu lệnh
+
+Yêu cầu: Cài đặt NodeJS
+
+## Khởi tạo dự án
+
+npm init -y ==> Tạo file package.json
+
+## Cài đặt dự án
+
+Cài đặt các dependencies trong file package.json đã khai báo
+
+npm i hoặc npm install ==> Tạo ra folder node_modules (Chứa các thư viện)
+
+Lưu ý: Khai báo folder node_modules trong file .gitignore --> Không đẩy lên git
+
+## Cài đặt Dependencies (Thư viện)
+
+- Xác định tên thư viện: Google, Market,...
+- Cài bằng câu lệnh:
+  npm i tenthuvien@phienban ==> Cài phiên bản chỉ định
+  npm i tenthuvien ==> Cài phiên bản mới nhất
+
+## Xóa thư viện
+
+npm uninstall tenthuvien
+
+## Các loại Dependencies
+
+- Simple Dependencies ==> Thư viện để chạy dự án
+
+  npm i tenthuvien
+
+- Dev Dependencies ==> Thư viện hỗ trợ trong quá trình dev dự án
+
+npm i tenthuvien --save-dev
+
+Lưu ý: Khi cài đặt dự án (npm i) ==> npm cài đặt tất cả các loại dependencies có trong file package.json
+
+Chỉ định chỉ cài các dependencies của Production (Phục vụ cho môi trường sản phẩm)
+
+npm i --product
+
+## Các kiểu cài Dependencies
+
+- Local: Mặc định
+- Global: Cài đặt ở folder trên Server mà dự án nào cũng dùng được
+
+npm i tenthuvien -g
+
+Kiểm tra các Dependencies cài Global
+
+npm list -g
+
+Kiểm tra đường dẫn Global
+
+npm root -g
+
+## Cập nhật phiên bản

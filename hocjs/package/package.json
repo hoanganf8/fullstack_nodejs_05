@@ -1,0 +1,16 @@
+{
+  "name": "demo-package",
+  "version": "1.0.0",
+  "description": "Demo du an huong dan boi Hoang An",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "parcel index.html --port=3000 --open"
+  },
+  "keywords": [],
+  "author": "Hoang An F8",
+  "license": "ISC",
+  "devDependencies": {
+    "@parcel/transformer-sass": "^2.12.0",
+    "parcel": "^2.12.0"
+  }
+}
