@@ -72,3 +72,17 @@ Kiểm tra đường dẫn Global
 npm root -g
 
 ## Cập nhật phiên bản
+
+# Module Bundler
+
+Môi trường
+
+- Development --> Phát triển sản phẩm (Code)
+- Test / Staging --> Kiểm thử
+- Production --> Sản phẩm (Người dùng thật)
+
+Biến môi trường: Lưu trữ các giá trị ở các môi trường cụ thể
+
+Ví dụ: ServerApi, Database,...
+
+Quản lý biến môi trường ==> Sử dụng qua file .env

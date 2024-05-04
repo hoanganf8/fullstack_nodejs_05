@@ -1,3 +1,4 @@
+import moment from "moment"; //Import từ node_modules
 import "./assets/style.scss";
 import { Header } from "./components/Header";
 import { Footer } from "./components/Footer";
@@ -11,6 +12,7 @@ export const App = () => {
     <div><img src="${img01}" style="width: 200px"/></div>
     <p>Server API: ${SERVER_API}</p>
     <p>Web Title: ${WEB_TITLE}</p>
+    <h3>${moment().format()}</h3>
     ${Footer()}
   `;
 };

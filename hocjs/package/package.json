@@ -4,7 +4,8 @@
   "description": "Demo du an huong dan boi Hoang An",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "parcel index.html --port=3000 --open"
+    "start": "parcel index.html --port=3000 --open",
+    "build": "parcel build index.html --dist-dir=./build"
   },
   "keywords": [],
   "author": "Hoang An F8",
@@ -12,5 +13,8 @@
   "devDependencies": {
     "@parcel/transformer-sass": "^2.12.0",
     "parcel": "^2.12.0"
+  },
+  "dependencies": {
+    "moment": "^2.30.1"
   }
 }
