@@ -1,65 +1,96 @@
-import { useEffect } from "react";
-import { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import Input from "./components/Input";
 
-const apiUrl = `https://jsonplaceholder.typicode.com/users`;
 export default function App() {
   const [count, setCount] = useState(0);
-  const [users, setUsers] = useState([]);
-  const [isLoading, setLoading] = useState(true);
-  const [isShow, setShow] = useState(true);
-  const [error, setError] = useState(false);
-  const handleIncrement = () => {
-    setCount(count + 1);
+  //   const myObj = useRef(0);
+  //   const inputRef = useRef();
+  //   const handleClick = () => {
+  //     setCount(count + 1);
+  //     myObj.current++;
+  //   };
+  //   useEffect(() => {
+  //     // inputRef.current.focus();
+  //   }, []);
+
+  const data = ["Checkbox 1", "Checkbox 2", "Checkbox 3", "Checkbox 4"];
+  const checkItemsRef = useRef([]);
+  const checkAllRef = useRef();
+  const checkCountRef = useRef(0);
+  const inputRef = useRef();
+  const handleCheckAll = ({ target }) => {
+    const status = target.checked;
+    checkItemsRef.current.forEach((checkItem) => {
+      checkItem.checked = status;
+    });
+    checkCountRef.current = status ? checkItemsRef.current.length : 0;
   };
-  const getUsers = async () => {
-    try {
-      const response = await fetch(apiUrl);
-      if (response.ok) {
-        const data = await response.json();
-        setUsers(data);
-        setLoading(false);
-      }
-    } catch (e) {
-      setError(e);
+  const handleCheckItem = ({ target }) => {
+    const status = target.checked;
+    if (status) {
+      checkCountRef.current++;
+    } else {
+      checkCountRef.current--;
     }
+    checkAllRef.current.checked =
+      checkCountRef.current === checkItemsRef.current.length;
   };
-  useEffect(() => {
-    getUsers();
-  }, []);
-  if (error) {
-    return <h3>Đã có lỗi xảy ra</h3>;
-  }
+
+  //   useEffect(() => {
+  //     console.dir(inputRef.current);
+  //     inputRef.current.focus();
+  //     inputRef.current.value = "Hello anh em F8";
+  //     console.log(inputRef.current.value);
+  //     console.log(inputRef.current.className);
+  //     inputRef.current.className = "input-text-2";
+  //   }, []);
+  console.log("App re-render");
   return (
     <div>
-      <h1>Count: {count}</h1>
-      {console.log("Update UI")}
-      <button onClick={handleIncrement}>Click me</button>
-      <button onClick={() => setShow(!isShow)}>Toggle</button>
-      {isShow && (
-        <>
-          <h2>Users</h2>
-          {isLoading ? (
-            <h4>Loading...</h4>
-          ) : (
-            users.map(({ id, name }) => <h4 key={id}>{name}</h4>)
-          )}
-        </>
-      )}
+      {/* <h1>Count: {count}</h1>
+      <h2>Count2: {myObj.current}</h2>
+      <button onClick={handleClick}>Click me</button>
+      <hr />
+      <input type="text" ref={inputRef} /> */}
+      <div>
+        <label>
+          <input type="checkbox" onChange={handleCheckAll} ref={checkAllRef} />{" "}
+          Check All
+        </label>
+      </div>
+      {data.map((item, index) => (
+        <div key={index}>
+          <label>
+            <input
+              type="checkbox"
+              ref={(ref) => {
+                checkItemsRef.current.push(ref);
+              }}
+              onChange={handleCheckItem}
+            />
+            {item}
+          </label>
+        </div>
+      ))}
+      <Input count={count} ref={inputRef} />
+      <button onClick={() => setCount(count + 1)}>Click me</button>
     </div>
   );
 }
 
+//Refs
 /*
-Component: State thay đổi ==> Re-render
-Phát sinh 1 số công việc bên ngoài sau khi state thay đổi ==> Thực hiện sau khi re-render
+- Chức năng của React dùng để tham chiếu
+- Giữ nguyên kết quả gần nhất khi bị re-render
+- Tham chiếu tới các React Element để trả về DOM Element
+- Có thay đổi trực tiếp
+- Khi ref thay đổi ==> Component không bị re-render
+==> Ref đơn giản là 1 object thuần túy
 
-==> Side Effect
+Trong class component ==> Sử dụng React.createRef để tạo ref
+Trong functional Component ==> Sử dụng Hook useRef()
 
-Hook xử lý các Side Effect
-usEffect(callback, dependencies)
-
-dependencies: Điều kiện để callback trong useEffect hoạt động
-- [] ==> Hoạt động ngay sau khi component được render lần đầu tiên
-- null hoặc undefined ==> Component re-render callback sẽ hoạt động
-- [bien1, bien2, bien3,...] ==> 1 trong các biến thay đổi, callback sẽ hoạt động
+Buổi sau: 
+- Context và Hook useContext
+- Hook useReducer (Yêu cầu ôn tập lại vòng lặp reduce)
 */
