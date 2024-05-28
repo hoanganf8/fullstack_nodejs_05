@@ -1,12 +1,14 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import Login from "./Login";
 import Dashboard from "./Dashboard";
+import { useSelector } from "../../store/hook";
 export default function Auth() {
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  console.log(isAuthenticated);
   return (
     <div className="container">
       <h1 className="text-center">Hello anh em F8</h1>
-      {/* <Login /> */}
-      <Dashboard />
+      {isAuthenticated ? <Dashboard /> : <Login />}
     </div>
   );
 }
