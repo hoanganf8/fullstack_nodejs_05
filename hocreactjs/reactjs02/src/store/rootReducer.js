@@ -1,29 +1,27 @@
+import { combineReducers } from "./core";
+import { todoReducer, todoState } from "./reducers/todoReducer";
+import { counterState, couterReducer } from "./reducers/counterReducer";
+import { authReducer, authState } from "./reducers/authReducer";
+
+export const rootReducer = combineReducers({
+  counter: couterReducer,
+  todo: todoReducer,
+  auth: authReducer,
+});
+
 export const initialState = {
-  todoList: [],
-  count: 0,
+  todo: todoState,
+  counter: counterState,
+  auth: authState,
 };
-export const rootReducer = (state, action) => {
-  switch (action.type) {
-    case "todo/add":
-      return { ...state, todoList: [...state.todoList, action.payload] };
-    case "todo/delete":
-      return {
-        ...state,
-        todoList: state.todoList.filter((_, index) => index !== action.payload),
-      };
-    case "todo/completed":
-      return {
-        ...state,
-        todoList: state.todoList.map((todo, index) => {
-          if (index === action.payload.index) {
-            todo.completed = action.payload.status;
-          }
-          return todo;
-        }),
-      };
-    case "counter/increment":
-      return { ...state, count: state.count + 1 };
-    default:
-      return state;
-  }
-};
+
+//Mục tiêu: Có được 1 hàm reducer sau khi đã nối và 1 object initialState sau khi đã nối
+//Để phân biệt reducer này với reducer kia cần đặt 1 key
+
+/*
+- ReducerA và stateA
+- ReducerB và stateB
+- ReducerC và stateC
+
+=> rootReducer và rootInitalState = ReducerA và stateA + ReducerB và stateB ReducerC và stateC
+*/

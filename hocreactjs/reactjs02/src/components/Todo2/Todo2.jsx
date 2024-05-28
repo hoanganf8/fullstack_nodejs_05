@@ -8,9 +8,9 @@ import { useSelector, useDispatch } from "../../store/hook";
 import "./Todo.scss";
 
 export default function Todo2() {
-  const todoList = useSelector((state) => state.todoList);
+  const todoList = useSelector((state) => state.todo.todoList);
   const todoListCompleted = useSelector((state) =>
-    state.todoList.filter((todo) => todo.completed)
+    state.todo.todoList.filter((todo) => todo.completed)
   );
   const dispatch = useDispatch();
   const [name, setName] = useState("");
