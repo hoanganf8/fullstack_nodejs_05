@@ -4,7 +4,6 @@ import { useState } from "react";
 import { useDispatch } from "../../store/hook";
 export default function Login() {
   const loginApi = `https://api.escuelajs.co/api/v1/auth/login`;
-  // const profileApi = `https://api.escuelajs.co/api/v1/auth/profile`;
 
   const {
     register,

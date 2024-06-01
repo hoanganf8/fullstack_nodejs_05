@@ -11,3 +11,15 @@ export const loginRequest = async (url, data) => {
   }
   return response.json();
 };
+
+export const profileRequest = async (url, token) => {
+  const response = await fetch(url, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  if (!response.ok) {
+    return false;
+  }
+  return response.json();
+};
