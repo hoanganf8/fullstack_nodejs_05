@@ -1,20 +1,18 @@
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { fetchTodos } from "./redux/middlewares/fetchTodos";
+
 export default function App() {
-  const count = useSelector((state) => state.counter.count);
   const dispatch = useDispatch();
+  const todoList = useSelector((state) => state.todo.todoList);
+  useEffect(() => {
+    dispatch(fetchTodos()); //dispatch lên middleware (thunk)
+  }, []);
   return (
     <div>
-      <h1>Count: {count}</h1>
-      <button
-        onClick={() => dispatch({ type: "counter/decrement", payload: 5 })}
-      >
-        -
-      </button>
-      <button
-        onClick={() => dispatch({ type: "counter/increment", payload: 10 })}
-      >
-        +
-      </button>
+      {todoList.map(({ id, title }) => (
+        <h4 key={id}>{title}</h4>
+      ))}
     </div>
   );
 }
