@@ -1,4 +1,4 @@
-const expire = `2024-04-30 09:30:30`;
+const expire = `2024-06-30 09:30:30`;
 const daysEl = document.querySelector(".countdown .days .number");
 const hoursEl = document.querySelector(".countdown .hours .number");
 const minsEl = document.querySelector(".countdown .mins .number");
