@@ -1,3 +1,4 @@
+import styled from "styled-components";
 import { useState, useTransition } from "react";
 import students from "../db.json";
 // import { startTransition } from "react";
@@ -10,10 +11,13 @@ export default function Student() {
       setKeyword(e.target.value);
     });
   };
+  const Loading = styled.h4`
+    color: red;
+  `;
   return (
     <div>
       <input type="search" placeholder="Từ khóa..." onChange={handleSearch} />
-      {pending && <h4>Loading...</h4>}
+      {pending && <Loading>Loading...</Loading>}
       {students.map(({ id, fullName }) => {
         if (keyword) {
           const pos = fullName.toLowerCase().indexOf(keyword.toLowerCase());
