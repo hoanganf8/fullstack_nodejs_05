@@ -9,19 +9,25 @@ export const middleware = (request) => {
     return NextResponse.redirect(loginUrl);
   }
   //Hợp lệ ==> Cho phép đi tiếp
-  const requestHeaders = new Headers(request.headers); //Clone header cũ
-  requestHeaders.set("x-api-token", "ahihi");
-  console.log(request.cookies.get("username"));
+  // const requestHeaders = new Headers(request.headers); //Clone header cũ
+  // requestHeaders.set("x-api-token", "ahihi");
+  // console.log(request.cookies.get("username"));
 
   //Trả về response
-  const response = NextResponse.next({
-    request: {
-      headers: requestHeaders,
-    },
-  });
-  response.headers.set("x-abc", "nextjs");
-  response.cookies.set("username", "hoangan");
-  return response;
+  const response = NextResponse.next();
+  // response.headers.set("x-abc", "nextjs");
+  // response.cookies.set("username", "hoangan");
+  //Rewrite URL
+  if (pathname === "/san-pham") {
+    return NextResponse.rewrite(new URL("/products", request.url));
+    //Khi người dùng truy cập: /san-pham ==> Ánh xạ tới /products
+  }
+
+  if (pathname === "/products") {
+    return NextResponse.redirect(new URL("/san-pham", request.url));
+  }
+
+  // return response;
 };
 
 export const config = {
@@ -38,3 +44,6 @@ export const config = {
 };
 
 //request => middleware => next() => layout => page
+
+//Rewrite URL = Viết lại đường dẫn
+// Đường dẫn URL gọi đường dẫn ảo ==> Khi client truy cập đường dẫn ảo ==> Mapping với đường dẫn thật trên Server

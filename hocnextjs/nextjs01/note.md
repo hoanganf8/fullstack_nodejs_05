@@ -12,6 +12,11 @@ Lưu ý: Mặc định NextJS render theo cơ chế Server-Side
 - Không khai báo route
 - Dựa vào folder, file (filesystem router)
 
-# Middlewarer
+# Middleware
 
 Request (Truy cập URL) ==> Middleware ==> RootLayout ==> Layout ==> Page ==> Response (HTML)
+
+# Route Handler
+
+- Cho phép tạo ra các API (Xây dựng back-end)
+- Trả về json thay vì trả về jsx
