@@ -1,9 +1,14 @@
 "use server";
 
 import { revalidateTag } from "next/cache";
+import { redirect } from "next/navigation";
 
 export const handleSubmit = async (form) => {
   const title = form.get("title");
+  //Validate
+  if (!title) {
+    return { status: false, message: "Vui lòng nhập tên" };
+  }
   const res = await fetch("http://localhost:4000/todos", {
     method: "POST",
     headers: {
@@ -15,7 +20,8 @@ export const handleSubmit = async (form) => {
   });
   if (res.ok) {
     revalidateTag("todo-list");
-    return true;
+    // redirect("/todo");
+    return { status: true };
   }
-  return false;
+  return { status: false, message: "Đã có lỗi xảy ra" };
 };
