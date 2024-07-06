@@ -3,15 +3,18 @@ const usersRouter = require("./users");
 const homeController = require("../controllers/home.controller");
 const pageController = require("../controllers/page.controller");
 const authController = require("../controllers/auth.controller");
+const authMiddleware = require("../middlewares/auth.middleware");
 const router = express.Router();
 router.get("/", homeController.index);
 router.get("/gioi-thieu", pageController.about);
-router.get("/lien-he", pageController.contact);
-
 router.get("/auth/login", authController.login);
+router.post("/auth/login", authController.handleLogin);
+
+router.use(authMiddleware);
 
 //Import users.js
 router.use("/users", usersRouter);
+router.get("/lien-he", pageController.contact);
 module.exports = router;
 
 /*
