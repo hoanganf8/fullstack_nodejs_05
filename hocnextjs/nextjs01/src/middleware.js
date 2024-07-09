@@ -18,14 +18,14 @@ export const middleware = (request) => {
   // response.headers.set("x-abc", "nextjs");
   // response.cookies.set("username", "hoangan");
   //Rewrite URL
-  if (pathname === "/san-pham") {
-    return NextResponse.rewrite(new URL("/products", request.url));
-    //Khi người dùng truy cập: /san-pham ==> Ánh xạ tới /products
-  }
+  // if (pathname === "/san-pham") {
+  //   return NextResponse.rewrite(new URL("/products", request.url));
+  //   //Khi người dùng truy cập: /san-pham ==> Ánh xạ tới /products
+  // }
 
-  if (pathname === "/products") {
-    return NextResponse.redirect(new URL("/san-pham", request.url));
-  }
+  // if (pathname === "/products") {
+  //   return NextResponse.redirect(new URL("/san-pham", request.url));
+  // }
 
   // return response;
 };

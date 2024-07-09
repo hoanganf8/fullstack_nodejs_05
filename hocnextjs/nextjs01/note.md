@@ -20,3 +20,14 @@ Request (Truy cập URL) ==> Middleware ==> RootLayout ==> Layout ==> Page ==> R
 
 - Cho phép tạo ra các API (Xây dựng back-end)
 - Trả về json thay vì trả về jsx
+
+# Sử dụng CSS trong NextJS
+
+- Tạo file css / scss ==> Import vào layout / page / component
+- Để tránh xung đột class ==>
+
+* CSS / SCSS Module ==> Xem lại video phần React JS
+* Tailwind CSS ==> Không cần CSS
+* Dùng thư viện CSS-IN-JS ==> styled-component
+
+Lưu ý: Nếu muốn dùng scss ==> Cài npm i sass

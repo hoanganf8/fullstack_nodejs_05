@@ -6,6 +6,7 @@ import UserAdd from "./UserAdd";
 const userApi = process.env.NEXT_PUBLIC_SERVER_API + `/users`;
 const userContentApi = process.env.NEXT_PUBLIC_SERVER_API + `/user-content`;
 export default function UsersPage() {
+  console.log(process.env.APP_NAME);
   const [userId, setUserId] = useState();
   const [showAll, setShowAll] = useState(false);
   const [userContentList, setUserContentList] = useState([]);

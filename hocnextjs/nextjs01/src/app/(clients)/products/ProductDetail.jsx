@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 
-const getProduct = async (id) => {
+export const getProduct = async (id) => {
   try {
     const response = await fetch(
       `https://api.escuelajs.co/api/v1/products/${id}`
