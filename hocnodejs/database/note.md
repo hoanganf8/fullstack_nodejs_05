@@ -85,3 +85,25 @@ Table books_authors
 - id
 - book_id ==> books.id
 - author_id ==> authors.id
+
+Đặt unique: name và email
+
+==> 1
+Name: Hoàng An
+Email: hoangan.web@gmail.com
+
+==> 2
+Name: Hoàng An
+Email: hoanganit19@gmail.com
+
+Đặt Unique: email
+
+==> 1
+Name: Hoàng An
+Email: hoangan.web@gmail.com
+
+==> 2
+Name: Hoàng An
+Email: hoanganit19@gmail.com
+
+pg_dump -U postgres -h localhost f8_fullstack_k5 >> f8_fullstack_k5.sql
