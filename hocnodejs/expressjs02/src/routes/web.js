@@ -12,4 +12,7 @@ const router = express.Router();
 router.get("/courses", courseController.index);
 router.get("/courses/:id", courseController.find);
 router.post("/courses", courseController.create);
+router.post("/courses/update/:id", courseController.update);
+router.post("/courses/delete/:id", courseController.delete);
+router.post("/courses/deletes", courseController.deletes);
 module.exports = router;
