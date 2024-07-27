@@ -2,7 +2,7 @@
   "development": {
     "username": "postgres",
     "password": "f8@123",
-    "database": "f8_fullstack_k5",
+    "database": "f8_fullstack_k5_migrate",
     "host": "127.0.0.1",
     "dialect": "postgres",
     "logging": true
