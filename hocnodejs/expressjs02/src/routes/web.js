@@ -1,10 +1,10 @@
 const express = require("express");
 // const homeController = require("../controllers/home.controller");
-// const userController = require("../controllers/user.controller");
+const userController = require("../controllers/user.controller");
 const courseController = require("../controllers/course.controller");
 const router = express.Router();
 // router.get("/", homeController.index);
-// router.get("/users", userController.index);
+router.get("/users", userController.index);
 // router.get("/users/:id", userController.getDetail);
 // router.post("/users", userController.create);
 // router.post("/users/update/:id", userController.update);
