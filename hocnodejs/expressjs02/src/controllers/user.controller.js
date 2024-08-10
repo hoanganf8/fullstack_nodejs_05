@@ -2,16 +2,17 @@ const { User, Phone, Post } = require("../models/index");
 module.exports = {
   index: async (req, res) => {
     const users = await User.findAll({
-      include: [
-        {
-          model: Post,
-          as: "posts",
-        },
-        {
-          model: Phone,
-          as: "phone",
-        },
-      ],
+      // paranoid: false,
+      // include: [
+      //   {
+      //     model: Post,
+      //     as: "posts",
+      //   },
+      //   {
+      //     model: Phone,
+      //     as: "phone",
+      //   },
+      // ],
     });
     // for (let i = 0; i < users.length; i++) {
     //   const user = users[i];
@@ -73,5 +74,24 @@ module.exports = {
       title: "Post 7",
     });
     return res.json({ user, post });
+  },
+  deleteUser: async (req, res) => {
+    const { id } = req.params;
+    const status = await User.destroy({
+      where: {
+        id,
+      },
+      // force: true //Xóa vĩnh viễn
+    });
+    res.json({ status });
+  },
+  restoreUser: async (req, res) => {
+    const { id } = req.params;
+    const status = await User.restore({
+      where: {
+        id,
+      },
+    });
+    res.json({ status });
   },
 };
