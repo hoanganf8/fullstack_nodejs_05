@@ -1,5 +1,6 @@
 const { ReasonPhrases, StatusCodes } = require("http-status-codes");
 const { Op } = require("sequelize");
+const { object, string } = require("yup");
 const { successResponse, errorResponse } = require("../../../utils/response");
 const { User } = require("../../../models/index");
 module.exports = {
@@ -12,6 +13,12 @@ module.exports = {
         _limit = 2,
         _page = 1,
       } = req.query;
+      const apiKey = req.headers["x-api-key"];
+      if (!apiKey || apiKey !== "f8-training") {
+        const errors = new Error("Unauthorized");
+        errors.status = StatusCodes.UNAUTHORIZED;
+        throw errors;
+      }
       const where = {};
       if (q) {
         where[Op.or] = [
@@ -34,9 +41,76 @@ module.exports = {
         ReasonPhrases.OK
       );
     } catch (error) {
+      if (error.status === 401) {
+        return errorResponse(
+          res,
+          error.message,
+          error.status,
+          ReasonPhrases.UNAUTHORIZED
+        );
+      }
       return errorResponse(
         res,
         error.message,
+        StatusCodes.INTERNAL_SERVER_ERROR,
+        ReasonPhrases.INTERNAL_SERVER_ERROR
+      );
+    }
+  },
+  create: async (req, res) => {
+    try {
+      const schema = object({
+        fullname: string()
+          .required("Tên bắt buộc phải nhập")
+          .min(4, "Tên phải từ 4 ký tự"),
+        email: string()
+          .required("Email bắt buộc phải nhập")
+          .email("Email không đúng định dạng")
+          .test("checkUniqueEmail", "Email đã tồn tại", async (value) => {
+            const user = await User.findOne({
+              where: {
+                email: value,
+              },
+            });
+            return !user;
+          }),
+        password: string()
+          .required("Password bắt buộc phải nhập")
+          .min(6, "Mật khẩu quá ngắn"),
+        status: string().test(
+          "checkStatus",
+          "Trạng thái không hợp lệ",
+          (value) => {
+            return value === "true" || value === "false";
+          }
+        ),
+      });
+      const body = await schema.validate(req.body, {
+        abortEarly: false,
+      });
+      const user = await User.create(body);
+      return successResponse(
+        res,
+        user,
+        {},
+        StatusCodes.CREATED,
+        ReasonPhrases.CREATED
+      );
+    } catch (e) {
+      if (e.errors) {
+        const errors = Object.fromEntries(
+          e.inner.map((err) => [err.path, err.message])
+        );
+        return errorResponse(
+          res,
+          errors,
+          StatusCodes.BAD_REQUEST,
+          ReasonPhrases.BAD_REQUEST
+        );
+      }
+      return errorResponse(
+        res,
+        e.message,
         StatusCodes.INTERNAL_SERVER_ERROR,
         ReasonPhrases.INTERNAL_SERVER_ERROR
       );

@@ -10,7 +10,7 @@ const routerWeb = require("./routes/web");
 const routerApi = require("./routes/api");
 const authMiddleware = require("./middlewares/auth.middleware");
 dotenv.config();
-const port = 3000;
+const port = process.env.PORT || 3000;
 const app = express();
 //Log file
 app.use(
