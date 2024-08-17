@@ -57,6 +57,39 @@ module.exports = {
       );
     }
   },
+  find: async (req, res) => {
+    try {
+      const { id } = req.params;
+      const user = await User.findByPk(id);
+      if (!user) {
+        const error = new Error("User not found");
+        error.status = 404;
+        throw error;
+      }
+      return successResponse(
+        res,
+        user,
+        {},
+        StatusCodes.CREATED,
+        ReasonPhrases.CREATED
+      );
+    } catch (e) {
+      if (e.status === 404) {
+        return errorResponse(
+          res,
+          e.message,
+          StatusCodes.NOT_FOUND,
+          ReasonPhrases.NOT_FOUND
+        );
+      }
+      return errorResponse(
+        res,
+        e.message,
+        StatusCodes.INTERNAL_SERVER_ERROR,
+        ReasonPhrases.INTERNAL_SERVER_ERROR
+      );
+    }
+  },
   create: async (req, res) => {
     try {
       const schema = object({
@@ -96,6 +129,73 @@ module.exports = {
         StatusCodes.CREATED,
         ReasonPhrases.CREATED
       );
+    } catch (e) {
+      if (e.errors) {
+        const errors = Object.fromEntries(
+          e.inner.map((err) => [err.path, err.message])
+        );
+        return errorResponse(
+          res,
+          errors,
+          StatusCodes.BAD_REQUEST,
+          ReasonPhrases.BAD_REQUEST
+        );
+      }
+      return errorResponse(
+        res,
+        e.message,
+        StatusCodes.INTERNAL_SERVER_ERROR,
+        ReasonPhrases.INTERNAL_SERVER_ERROR
+      );
+    }
+  },
+  update: async (req, res) => {
+    try {
+      const { id } = req.params;
+      const rules = {};
+      if (req.body.fullname) {
+        rules.fullname = string().min(4, "Tên phải từ 4 ký tự");
+      }
+      if (req.body.email) {
+        rules.email = string()
+          .email("Email không đúng định dạng")
+          .test("checkUniqueEmail", "Email đã tồn tại", async (value) => {
+            const user = await User.findOne({
+              where: {
+                email: value,
+                id: {
+                  [Op.ne]: id,
+                },
+              },
+            });
+            return !user;
+          });
+      }
+      if (req.body.password) {
+        rules.password = string().min(6, "Mật khẩu quá ngắn");
+      }
+      if (req.body.status) {
+        rules.status = string().test(
+          "checkStatus",
+          "Trạng thái không hợp lệ",
+          (value) => {
+            return value === "true" || value === "false";
+          }
+        );
+      }
+      const schema = object(rules);
+      const body = await schema.validate(req.body, {
+        abortEarly: false,
+      });
+      const [status] = await User.update(body, {
+        where: { id },
+      });
+
+      if (!status) {
+        throw new Error("Server Error");
+      }
+      const user = await User.findByPk(id);
+      return successResponse(res, user, {}, StatusCodes.OK, ReasonPhrases.OK);
     } catch (e) {
       if (e.errors) {
         const errors = Object.fromEntries(
