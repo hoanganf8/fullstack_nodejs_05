@@ -3,11 +3,14 @@
 import { useEffect, useState } from "react";
 
 const getUsers = async () => {
-  const response = await fetch(`${process.env.SERVER_API}/api/v1/users`, {
-    headers: {
-      "x-api-key": "f8-training",
-    },
-  });
+  const response = await fetch(
+    `${process.env.SERVER_API}/api/v1/users?_limit=5`,
+    {
+      headers: {
+        "x-api-key": "f8-training",
+      },
+    }
+  );
   return response.json();
 };
 export default function Users() {
