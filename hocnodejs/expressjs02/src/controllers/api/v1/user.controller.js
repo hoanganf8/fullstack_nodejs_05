@@ -121,6 +121,7 @@ module.exports = {
       const body = await schema.validate(req.body, {
         abortEarly: false,
       });
+
       const user = await User.create(body);
       return successResponse(
         res,
@@ -153,8 +154,12 @@ module.exports = {
     try {
       const { id } = req.params;
       const rules = {};
+      const userData = {
+        status: false,
+      };
       if (req.body.fullname) {
         rules.fullname = string().min(4, "Tên phải từ 4 ký tự");
+        userData.fullname = req.body.fullname;
       }
       if (req.body.email) {
         rules.email = string()
@@ -170,9 +175,11 @@ module.exports = {
             });
             return !user;
           });
+        userData.email = req.body.email;
       }
       if (req.body.password) {
         rules.password = string().min(6, "Mật khẩu quá ngắn");
+        userData.password = req.body.password;
       }
       if (req.body.status) {
         rules.status = string().test(
@@ -182,12 +189,13 @@ module.exports = {
             return value === "true" || value === "false";
           }
         );
+        userData.status = req.body.status;
       }
       const schema = object(rules);
-      const body = await schema.validate(req.body, {
+      await schema.validate(req.body, {
         abortEarly: false,
       });
-      const [status] = await User.update(body, {
+      const [status] = await User.update(userData, {
         where: { id },
       });
 
