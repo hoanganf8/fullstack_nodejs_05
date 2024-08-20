@@ -3,6 +3,7 @@ const { Op } = require("sequelize");
 const { object, string } = require("yup");
 const { successResponse, errorResponse } = require("../../../utils/response");
 const { User } = require("../../../models/index");
+const { hashMake } = require("../../../utils/hash");
 module.exports = {
   index: async (req, res) => {
     try {
@@ -121,6 +122,12 @@ module.exports = {
       const body = await schema.validate(req.body, {
         abortEarly: false,
       });
+
+      //Mã hóa mật khẩu
+      // - Hàm mã hóa 1 chiều: md5, sha1,...
+      // - Hàm băm: bcrypt, argon2, scrypt, ... --> hashing
+
+      body.password = await hashMake(body.password);
 
       const user = await User.create(body);
       return successResponse(
