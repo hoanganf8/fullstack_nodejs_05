@@ -41,4 +41,12 @@ router.get("/send-mail", async (req, res) => {
   const info = await sendMail("hoangan@fullstack.edu.vn", "Ok chưa?", content);
   res.json({ info });
 });
+const redis = require("../utils/redis");
+router.get("/test-redis", async (req, res) => {
+  await redis.connect();
+  await redis.setData("name", "Hoàng An");
+  // await redis.disconnect();
+  res.json({ name: await redis.getData("name") });
+});
+
 module.exports = router;

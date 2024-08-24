@@ -8,7 +8,10 @@ const { hashCheck } = require("../../../../utils/hash");
 const {
   createAccessToken,
   verifyAccessToken,
+  createRefreshToken,
+  verifyRefreshToken,
 } = require("../../../../utils/jwt");
+const redis = require("../../../../utils/redis");
 
 module.exports = {
   login: async (req, res) => {
@@ -51,10 +54,15 @@ module.exports = {
     const accessToken = createAccessToken({
       userId: user.id,
     });
+    const refreshToken = createRefreshToken(user.id);
+    await redis.connect();
+    await redis.setData(`refreshToken-${refreshToken}`, refreshToken, 604800);
+    await redis.disconnect();
     return successResponse(
       res,
       {
         accessToken,
+        refreshToken,
       },
       null,
       StatusCodes.OK,
@@ -62,23 +70,80 @@ module.exports = {
     );
   },
   profile: async (req, res) => {
+    return successResponse(res, req.user, {}, StatusCodes.OK, ReasonPhrases.OK);
+  },
+  refreshToken: async (req, res) => {
     try {
-      const accessToken = req
-        .get("Authorization")
-        ?.split?.(" ")
-        .slice(-1)
-        .join();
-      const { userId } = verifyAccessToken(accessToken);
-      //Truy vấn tới bảng user
-      const user = await User.findByPk(userId);
-      if (!user) {
-        throw new Error("User Not Found");
+      const { refreshToken } = req.body;
+      if (!refreshToken) {
+        return errorResponse(
+          res,
+          "Vui lòng cung cấp refreshToken",
+          StatusCodes.BAD_REQUEST,
+          ReasonPhrases.BAD_REQUEST
+        );
       }
-      return successResponse(res, user, {}, StatusCodes.OK, ReasonPhrases.OK);
+
+      //Kiểm tra xem token có ở trong redis không?
+      await redis.connect();
+      if (!(await redis.getData(`refreshToken-${refreshToken}`))) {
+        throw new Error("Refresh Token not valid");
+      }
+      await redis.disconnect();
+
+      const { userId } = verifyRefreshToken(refreshToken);
+      const accessToken = createAccessToken({
+        userId,
+      });
+      return successResponse(
+        res,
+        {
+          accessToken,
+          refreshToken,
+        },
+        null,
+        StatusCodes.OK,
+        ReasonPhrases.OK
+      );
     } catch (e) {
       return errorResponse(
         res,
-        "Thông tin xác thực không chính xác",
+        "Refresh token xác thực không chính xác",
+        StatusCodes.UNAUTHORIZED,
+        ReasonPhrases.UNAUTHORIZED
+      );
+    }
+  },
+  logout: async (req, res) => {
+    try {
+      const { accessToken } = req;
+      await redis.connect();
+      await redis.setData(`backlist-${accessToken}`, accessToken, 3600);
+      await redis.disconnect();
+      return successResponse(res, {}, null, StatusCodes.OK, ReasonPhrases.OK);
+    } catch (e) {
+      return errorResponse(
+        res,
+        "Logout failed",
+        StatusCodes.UNAUTHORIZED,
+        ReasonPhrases.UNAUTHORIZED
+      );
+    }
+  },
+  revokeToken: async (req, res) => {
+    try {
+      const { refreshToken } = req.body;
+      if (!refreshToken) {
+        throw new Error("Refresh token not valid");
+      }
+      await redis.connect();
+      await redis.deleteData(`refreshToken-${refreshToken}`);
+      await redis.disconnect();
+      return successResponse(res, {}, null, StatusCodes.OK, ReasonPhrases.OK);
+    } catch (e) {
+      return errorResponse(
+        res,
+        e.message,
         StatusCodes.UNAUTHORIZED,
         ReasonPhrases.UNAUTHORIZED
       );
