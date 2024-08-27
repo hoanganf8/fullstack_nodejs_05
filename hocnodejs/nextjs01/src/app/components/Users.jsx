@@ -2,23 +2,23 @@
 
 import { useEffect, useState } from "react";
 
-const getUsers = async () => {
+const getUsers = async (token) => {
   const response = await fetch(
     `${process.env.SERVER_API}/api/v1/users?_limit=5`,
     {
       headers: {
-        "x-api-key": "f8-training",
+        Authorization: `Bearer ${token}`,
       },
     }
   );
   return response.json();
 };
-export default function Users() {
+export default function Users({ token, permissions }) {
   const [users, setUsers] = useState([]);
   const [isLoading, setLoading] = useState(true);
   const [errors, setErrors] = useState(null);
   useEffect(() => {
-    getUsers()
+    getUsers(token)
       .then(({ data, success, errors }) => {
         if (!success) {
           setErrors(errors);
@@ -36,6 +36,7 @@ export default function Users() {
   return (
     <div>
       <h2>Danh sách người dùng</h2>
+      {permissions.includes("users.create") && <button>Thêm mới</button>}
       {isLoading ? (
         <p>Loading...</p>
       ) : (

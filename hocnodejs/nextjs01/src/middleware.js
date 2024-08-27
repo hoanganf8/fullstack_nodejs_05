@@ -20,6 +20,7 @@ export const middleware = async (request) => {
     //Lấy token từ cookie
     let isAuth = false;
     const token = cookies().get("token");
+
     if (token) {
       const accessToken = token.value;
       if (accessToken) {
@@ -28,6 +29,15 @@ export const middleware = async (request) => {
           isAuth = true;
           const requestHeaders = new Headers(request.headers);
           requestHeaders.set("x-user", JSON.stringify(user.data));
+          const permissions = user.data.permissions;
+          if (
+            (pathname === "/users/create" &&
+              !permissions.includes("users.create")) ||
+            (pathname === "/" && !permissions.includes("users.read"))
+          ) {
+            //Chuyển hướng sang trang không có quyền
+            return NextResponse.redirect(new URL("/forbidden", request.url));
+          }
           return NextResponse.next({
             request: {
               headers: requestHeaders,

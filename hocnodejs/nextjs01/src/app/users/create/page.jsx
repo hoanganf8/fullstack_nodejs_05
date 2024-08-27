@@ -1,9 +1,12 @@
 import { redirect } from "next/navigation";
+import { cookies } from "next/headers";
 const addUser = async (data) => {
+  const token = cookies().get("token")?.value;
   const response = await fetch(`${process.env.SERVER_API}/api/v1/users`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify(data),
   });
