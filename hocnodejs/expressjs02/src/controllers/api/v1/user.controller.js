@@ -14,12 +14,12 @@ module.exports = {
         _limit = 2,
         _page = 1,
       } = req.query;
-      const apiKey = req.headers["x-api-key"];
-      if (!apiKey || apiKey !== "f8-training") {
-        const errors = new Error("Unauthorized");
-        errors.status = StatusCodes.UNAUTHORIZED;
-        throw errors;
-      }
+      // const apiKey = req.headers["x-api-key"];
+      // if (!apiKey || apiKey !== "f8-training") {
+      //   const errors = new Error("Unauthorized");
+      //   errors.status = StatusCodes.UNAUTHORIZED;
+      //   throw errors;
+      // }
       const where = {};
       if (q) {
         where[Op.or] = [

@@ -126,4 +126,23 @@ module.exports = {
       );
     }
   },
+  destroy: async (req, res) => {
+    try {
+      const { id } = req.params;
+      const role = await Role.findByPk(id);
+      if (!role) {
+        throw new Error("Role not exist");
+      }
+      await role.setPermissions([]);
+      const status = await Role.destroy({ where: { id } });
+      return successResponse(res, status, {}, StatusCodes.OK, ReasonPhrases.OK);
+    } catch (err) {
+      return errorResponse(
+        res,
+        err.message,
+        StatusCodes.INTERNAL_SERVER_ERROR,
+        ReasonPhrases.INTERNAL_SERVER_ERROR
+      );
+    }
+  },
 };

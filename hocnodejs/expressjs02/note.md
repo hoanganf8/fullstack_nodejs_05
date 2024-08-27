@@ -20,3 +20,5 @@ Còn thiếu:
 - users_roles
 - users_permissions
 - Middeware kiểm tra quyền (Xác thực trước)
+
+Request ==> Auth Middleware ==> Lấy được thông tin user ==> PermissionMiddleware ==> Dùng thông tin user của Auth Middleware để kiểm tra

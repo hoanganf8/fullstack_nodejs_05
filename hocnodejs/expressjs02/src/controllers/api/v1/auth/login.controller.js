@@ -12,6 +12,7 @@ const {
   verifyRefreshToken,
 } = require("../../../../utils/jwt");
 const redis = require("../../../../utils/redis");
+const { getPermissions } = require("../../../../utils/permission");
 
 module.exports = {
   login: async (req, res) => {
@@ -70,7 +71,12 @@ module.exports = {
     );
   },
   profile: async (req, res) => {
-    return successResponse(res, req.user, {}, StatusCodes.OK, ReasonPhrases.OK);
+    const data = {
+      ...req.user.dataValues,
+      permissions: await getPermissions(req.user.id),
+    };
+
+    return successResponse(res, data, {}, StatusCodes.OK, ReasonPhrases.OK);
   },
   refreshToken: async (req, res) => {
     try {
